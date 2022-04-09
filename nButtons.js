@@ -1,6 +1,6 @@
-function addBtn() {
-  let numberBtn = document.getElementById("numberBtn").value;
-  for (let i = 1; i <= numberBtn; ++i) {
+function createButtons() {
+  let buttonIndex = document.getElementById("numberBtn").value;
+  for (let i = 1; i <= buttonIndex; ++i) {
     let createBtn = document.createElement("button");
     createBtn.innerHTML = "Click" + i;
     createBtn.setAttribute("id",i);
@@ -8,19 +8,16 @@ function addBtn() {
     createBtn.style.backgroundColor = 'dodgerblue';
     document.getElementById("btn").disabled = true;
   }
-  let random = Math.floor((Math.random() * numberBtn) + 1);
-  winnerButton(random, numberBtn);
+  let winningBtn = Math.floor((Math.random() * buttonIndex) + 1);
+  for (let i = 1; i <= buttonIndex; ++i) {
+    document.getElementById(i).onclick = function() { checkWinner(winningBtn, i) };
+  }
 }
 
-function winnerButton(random,numberBtn) {
-  for (let i = 1; i <= numberBtn; ++i) {
-    document.getElementById(i).onclick = function() { myFunction() };
-    function myFunction() {
-      if (random == i) {
-        document.getElementById("message").innerHTML = "<h1>WINNER</h1>";
-      } else {
-        document.getElementById("message").innerHTML = "<h1>LOSER</h1>";
-      }
-    }
+function checkWinner(winningBtn, i) {
+  if (winningBtn == i) {
+    document.getElementById("message").innerHTML = "<h1>WINNER</h1>";
+  }  else {
+    document.getElementById("message").innerHTML = "<h1>LOSER</h1>";
   }
 }
